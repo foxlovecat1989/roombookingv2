@@ -17,7 +17,9 @@ public class RestUserController {
     private final UserRepository userRepository;
 
     @GetMapping
-    public List<AngularUser> getAllUsers(){
+    public List<AngularUser> getAllUsers() throws InterruptedException {
+        Thread.sleep(3000);
+
         return userRepository.findAll().stream().map(AngularUser::toAngularUser).collect(Collectors.toList());
     }
 

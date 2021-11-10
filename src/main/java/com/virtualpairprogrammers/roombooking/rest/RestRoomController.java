@@ -15,7 +15,9 @@ public class RestRoomController {
     private final RoomRepository roomRepository;
 
     @GetMapping
-    public List<Room> getAllRooms(){
+    public List<Room> getAllRooms() throws InterruptedException {
+        Thread.sleep(3000);
+
         return roomRepository.findAll();
     }
 
@@ -37,5 +39,10 @@ public class RestRoomController {
         originalRoom.setLayoutCapacities(updateRoom.getLayoutCapacities());
 
         return roomRepository.save(originalRoom);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public void deleteRoom(@PathVariable("id") Long id){
+        roomRepository.deleteById(id);
     }
 }
