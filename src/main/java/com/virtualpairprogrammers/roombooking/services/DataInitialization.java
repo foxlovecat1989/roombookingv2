@@ -48,6 +48,8 @@ public class DataInitialization {
 
             User user = new User("matt", "secret");
             userRepository.save(user);
+            User user2 = new User("delete", "aaa");
+            userRepository.save(user2);
 
             Booking booking1 = new Booking();
             booking1.setDate(new java.sql.Date(new java.util.Date().getTime()));
