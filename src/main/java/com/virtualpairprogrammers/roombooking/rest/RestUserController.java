@@ -40,4 +40,9 @@ public class RestUserController {
 
         return AngularUser.toAngularUser(userRepository.save(AngularUser.toUser(angularUser)));
     }
+
+    @DeleteMapping(path = "/{id}")
+    public void deleteById(@PathVariable("id") Long id){
+        userRepository.deleteById(id);
+    }
 }
