@@ -34,7 +34,7 @@ public class RestRoomController {
         Room originalRoom = roomRepository.findById(updateRoom.getId()).get();
         originalRoom.setName(updateRoom.getName());
         originalRoom.setLocation(updateRoom.getLocation());
-        originalRoom.setCapacities(updateRoom.getCapacities());
+        originalRoom.setLayoutCapacities(updateRoom.getLayoutCapacities());
 
         return roomRepository.save(originalRoom);
     }

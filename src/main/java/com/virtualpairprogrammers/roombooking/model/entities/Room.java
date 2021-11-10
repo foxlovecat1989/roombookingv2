@@ -2,6 +2,9 @@ package com.virtualpairprogrammers.roombooking.model.entities;
 
 import com.virtualpairprogrammers.roombooking.model.Layout;
 import com.virtualpairprogrammers.roombooking.model.entities.LayoutCapacity;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -9,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,53 +27,21 @@ public class Room {
     private String location;
 
     @OneToMany(cascade = {CascadeType.ALL})
-    private List<LayoutCapacity> capacities;
+    private List<LayoutCapacity> layoutCapacities;
 
     public Room(String name, String location) {
         this.name = name;
         this.location = location;
-        capacities = new ArrayList<>();
+        layoutCapacities = new ArrayList<>();
         for (Layout layout : Layout.values()) {
-            capacities.add(new LayoutCapacity(layout, 0));
+            layoutCapacities.add(new LayoutCapacity(layout, 0));
         }
     }
 
-    public Room() { }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public List<LayoutCapacity> getCapacities() {
-        return capacities;
-    }
-
-    public void setCapacities(List<LayoutCapacity> capacities) {this.capacities = capacities;}
-
-    public void setCapacity(LayoutCapacity capacity) {
-        for (LayoutCapacity lc : capacities) {
-            if (lc.getLayout() == capacity.getLayout()) {
-                lc.setCapacity(capacity.getCapacity());
+    public void setCapacity(LayoutCapacity layoutCapacity) {
+        for (LayoutCapacity lc : layoutCapacities) {
+            if (lc.getLayout() == layoutCapacity.getLayout()) {
+                lc.setCapacity(layoutCapacity.getCapacity());
             }
         }
     }

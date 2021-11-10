@@ -11,15 +11,18 @@ public class AngularUser {
     private Long id;
     private String name;
 
-     public AngularUser(User user) {
-        this.id = user.getId();
-        this.name = user.getName();
+     public static AngularUser toAngularUser(User user) {
+        AngularUser angularUser = new AngularUser();
+        angularUser.id = user.getId();
+        angularUser.name = user.getName();
+
+        return angularUser;
     }
 
-    public User asUser() {
+    public static User toUser(AngularUser angularUser) {
         User user = new User();
-        user.setId(this.id);
-        user.setName(this.name);
+        user.setId(angularUser.getId());
+        user.setName(angularUser.getName());
         user.setPassword("");
 
         return user;
