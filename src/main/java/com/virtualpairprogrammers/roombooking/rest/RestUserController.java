@@ -6,6 +6,7 @@ import com.virtualpairprogrammers.roombooking.model.entities.User;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,20 +30,23 @@ public class RestUserController {
     }
 
     @PostMapping()
-    public AngularUser newUser(@RequestBody AngularUser angularUser) {
-        return AngularUser.toAngularUser(userRepository.save(AngularUser.toUser(angularUser)));
+    public AngularUser newUser(@RequestBody User user) {
+        return AngularUser.toAngularUser(userRepository.save(user));
     }
 
     @PutMapping()
-    public AngularUser updateUser(@RequestBody AngularUser angularUser) {
+    public AngularUser updateUser(@RequestBody AngularUser angularUser) throws InterruptedException {
+        Thread.sleep(3000);
         User originalUser = userRepository.findById(angularUser.getId()).get();
         originalUser.setName(angularUser.getName());
+        originalUser.setPassword(originalUser.getPassword());
 
-        return AngularUser.toAngularUser(userRepository.save(AngularUser.toUser(angularUser)));
+        return AngularUser.toAngularUser(userRepository.save(originalUser));
     }
 
     @DeleteMapping(path = "/{id}")
-    public void deleteById(@PathVariable("id") Long id){
+    public void deleteById(@PathVariable("id") Long id) throws InterruptedException {
+        Thread.sleep(3000);
         userRepository.deleteById(id);
     }
 
