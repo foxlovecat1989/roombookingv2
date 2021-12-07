@@ -5,6 +5,7 @@ import com.virtualpairprogrammers.roombooking.model.entities.Room;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -15,7 +16,7 @@ public class RestRoomController {
     private final RoomRepository roomRepository;
 
     @GetMapping
-    public List<Room> getAllRooms() throws InterruptedException {
+    public List<Room> getAllRooms(HttpServletResponse response) throws InterruptedException {
         Thread.sleep(3000);
 
         return roomRepository.findAll();
